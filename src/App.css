@@ -36,3 +36,482 @@
     transform: rotate(360deg);
   }
 }
+
+.picture{
+  width: 30%;
+  height: 100%;
+}
+.box2{
+  width: 70%;
+}
+.image-container {
+  width: 100%; /* Set the image width to 100% of the parent container */
+  height: 100%; /* Set the image height to 100% of the parent container */
+  object-fit: cover; /* Optional: To maintain aspect ratio and cover the entire container */
+  padding-top: .9vw;
+  padding-right: 1vw;
+  padding-bottom: 1vw;
+}
+.heading{
+  font-family: 'Libre Baskerville', serif;
+}
+.paragraph{
+  font-family: 'Kenia', cursive;
+}.bigContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: green 2px solid;
+  flex-wrap: wrap;
+}
+.logo {
+  position: relative;
+  top: -8px; /* Adjust the value to control how much the logo protrudes out */
+  z-index: 1; /* Ensure the logo appears above the navbar background */
+}
+.logo img {
+  position: relative;
+  top: -10px; /* Adjust the value to control how much the logo protrudes out */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow for the 3D effect */
+}
+
+/* Home Screen CasrouselWithCntent Main Image CSS*/
+section {
+  display: block;
+}
+
+#hero {
+  width: 100%;
+  height: calc(100vh - 109px);
+  position: relative;
+  overflow: hidden;
+}
+#hero:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: calc( 100vw + 50px);
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(0px);
+  animation: heroAnim 10s linear infinite alternate;
+  transition: all 1s ease-out;
+}
+.heroSlide1:after {
+  background-image: url(../public/assets/images/jaikedar1.jpg);
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+#hero .sideShade {
+  width: 40%;
+  height: 100%;
+  background-color: #014421D0;
+  position: absolute;
+  z-index: 2;
+  right: 0px;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  animation: sideShadeAnim 0.8s cubic-bezier(.38,1.08,.98,1) 1s 1 forwards;
+}
+#hero .sideShade h4 {
+  letter-spacing: 5px;
+}
+@keyframes sideShadeAnim{
+	100%{
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+	}
+}
+@media only screen and (max-width: 700px) {
+    #hero .sideShade {
+        width: 100%;
+        text-align: center
+    }
+    #hero .sideShade h1{
+        text-align: center
+    }
+    #quickLinks img {
+        width: 40px;
+        height: 40px;
+    }
+    #quickLinks p{
+        font-size   : 14px;
+    }
+}
+
+.fullscreen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(50%);
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.image-text {
+  position: absolute;
+  top: 50%; /* Position the element 50% from the top */
+  left: 50%; /* Position the element 50% from the left */
+  transform: translate(-50%, -50%); /* Center the element */
+  text-align: center;
+  color: white;
+  filter: brightness(200%);
+}
+
+.custom-bg-color {
+  background-color: #87CEEB; 
+}
+
+/* About Picture CSS */
+
+#abt {
+  width: 100%;
+  height: calc(100vh - 149px);
+  position: relative;
+  overflow: hidden;
+}
+.aboutSlide {
+  background-image: url(../public/assets/images/abt0.jpg);
+}
+
+/* Upcoming Events Slider CSS */
+.slider-container {
+  position: relative;
+
+    position: relative;
+    height: calc(100vh - 250px); /* Assuming the navbar height is 80px */
+}
+
+.slider-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.slider-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-container {
+  position: absolute;
+  padding: 20px;
+  color: #fff;
+}
+
+.slider-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slider-controls button {
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.even-slide .text-container {
+  left: 20px;
+}
+
+.odd-slide .text-container {
+  right: 20px;
+}
+ /* Gallery CSS */
+
+.img-fluid {
+  transition: all 0.3s ease; /* Transition */
+}
+
+/* Styles for the smaller images */
+.small {
+  max-width: 150px; /* Adjust the size according to your needs */
+  max-height: 150px; /* Adjust the size according to your needs */
+  cursor: pointer;
+}
+
+/* Styles for the expanded images */
+.expanded {
+  max-width: 80%; /* Adjust the size according to your needs */
+  max-height: 80%; /* Adjust the size according to your needs */
+  cursor: pointer;
+}
+
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.event-container {
+  width: 100%;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.img-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.img-container {
+  cursor: pointer;
+  width: 25%; /* 4 images in a row */
+  margin: 5px;
+  overflow: hidden;
+  transition: flex-basis 0.3s ease-in-out;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.small {
+  flex-basis: 25%;
+}
+
+.expanded {
+  flex-basis: 100%;
+  cursor: zoom-out;
+}
+
+/* Styles for expanded portrait image */
+.expanded img.portrait {
+  width: 608px;
+  height: 1080px;
+  object-fit: contain;
+}
+
+/* ImageModal.css */
+
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Add the following properties to prevent background expanding */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.image-modal {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  max-height: 600px;
+  padding: 20px;
+  background-color: transparent; /* Set the background color to transparent */
+  box-shadow: none; /* Remove box-shadow to eliminate borders */
+  /* Add the following transform and pointer-events properties */
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.close-button:hover {
+  color: #f44336;
+}
+
+.media-row {
+  /* ... Existing styles ... */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.media-container {
+  /* Set fixed width for the media containers (images and videos) */
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.media-thumbnail {
+  /* Set images to cover the container with the same aspect ratio */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-thumbnail {
+  /* Style the play button overlay on top of the video thumbnail */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+}
+
+/* ImageModal.css */
+
+/* Background overlay */
+.media-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal container */
+.media-modal {
+  position: relative; /* Required for positioning the close button */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Add overflow: hidden */
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+/* Portrait images */
+.modal-image.portrait {
+  max-height: 80vh; /* Maximum visible size for portrait images */
+  max-width: 80vw; /* Maximum visible size for portrait images */
+}
+
+/* Landscape images */
+.modal-image {
+  max-height: 90vh; /* Maximum visible size for landscape images */
+  max-width: 90vw; /* Maximum visible size for landscape images */
+}
+/* Video player */
+.modal-video {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5rem;
+  padding: 0.5rem; /* Increase padding for larger "X" mark */
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem; /* Increase font size for larger "X" mark */
+  color: black; /* Change color for better visibility */
+  transition: background-color 0.3s ease-in-out; /* Add transition effect */
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 1); /* Full opacity on hover for better visibility */
+}
+
+.modal-navigation {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  cursor: pointer;
+  color: white;
+  z-index: 1;
+  padding: 1rem;
+  user-select: none;
+}
+
+.prev-button {
+  left: 0;
+}
+
+.next-button {
+  right: 0;
+}
+
+
+/* Assuming you have a CSS file linked in your HTML */
+
+.thumbnail-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Zoom in landscape images to match col-md-2 width */
+.landscape {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 120px; /* Adjust this value as needed */
+}
+
+.col-md-1,
+.col-md-10 {
+  padding: 0;
+}
+
+.col-md-1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.col-md-10 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

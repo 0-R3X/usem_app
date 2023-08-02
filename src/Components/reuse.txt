@@ -1,0 +1,108 @@
+  // const home = () => {
+  //   return (
+  //     <>
+  //       <Header />
+  //       <CarouselWithContent />
+  //       <Footer />
+  //     </>
+  //   );
+  // };
+
+  // const about = () => {
+  //   return (
+  //     <>
+  //       <Header />
+  //       <About />
+  //       <Footer />
+  //     </>
+  //   );
+  // };
+
+  // const events = () => {
+  //   return (
+  //     <>
+  //       <Header />
+  //       <PhotoGallery/>
+  //       <Gallery/>
+  //       <Footer />
+  //     </>
+  //   );
+  // };
+  // const carousel = () => {
+  //   return (
+  //     <>
+  //       <Header />
+  //       <Events />
+  //       <Footer />
+  //     </>
+  //   );
+  // };
+
+
+
+Gallery Images
+
+const photoData = [
+  {
+    event: 'रक्तदान शिविर',
+    photos: [
+      'assets/event1/1 (1).jpg',
+      'assets/event1/1 (2).jpg',
+      'assets/event1/1 (3).jpg',
+      'assets/event1/1 (4).jpg',
+      'assets/event1/1 (5).jpg',
+      'assets/event1/1 (6).jpg',
+      'assets/event1/1 (7).jpg',
+      'assets/event1/1 (8).jpg',
+      'assets/event1/1 (9).jpg',
+      'assets/event1/1 (10).jpg',
+      'assets/event1/1 (11).jpg',
+      'assets/event1/1 (12).jpg',
+      'assets/event1/1 (13).jpg',
+      'assets/event1/1 (14).jpg',
+      'assets/event1/1 (15).jpg',
+      'assets/event1/1 (16).jpg',
+      'assets/event1/1 (17).jpg',
+      'assets/event1/1 (18).jpg',
+      'assets/event1/1 (19).jpg',
+      // Add more image URLs for Event 1
+    ],
+  },
+
+
+  {
+    event: 'होली मिलन समारोह',
+    photos: [
+      'assets/event2/1 (1).jpg',
+      'assets/event2/1 (2).jpg',
+      'assets/event2/1 (3).jpg',
+      'assets/event2/1 (4).jpg',
+      'assets/event2/1 (5).jpg',
+      'assets/event2/1 (6).jpg',
+      'assets/event2/1 (7).jpg',
+      'assets/event2/1 (8).jpg',
+      'assets/event2/1 (9).jpg',
+      'assets/event2/1 (10).jpg',
+      'assets/event2/1 (11).jpg',
+      'assets/event2/1 (12).jpg',
+      'assets/event2/1 (13).jpg',
+      'assets/event2/1 (14).jpg',
+      'assets/event2/1 (15).jpg',
+      'assets/event2/1 (16).jpg',
+
+      // Add more image URLs for Event 1
+    ],
+  },
+  
+
+  {
+    event: 'वृक्षारोपण',
+    photos: [
+      'assets/event3/1 (1).jpg',
+      'assets/event3/1 (2).jpg',
+      'assets/event3/1 (3).jpg',
+      // Add more image URLs for Event 2
+    ],
+  },
+  // Add more events
+];
