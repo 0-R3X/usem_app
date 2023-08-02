@@ -4,7 +4,6 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import galleryData from "./galleryData";
 import Gallery from "./Gallery";
 import React, {useState } from 'react';
-// useEffect, 
 
 
 const photoData = [
@@ -107,18 +106,14 @@ const photoData = [
 
 const videoData = [
   {
-    event: 'रक्तदान शिविर',
+    event: 'वीडियो',
     videos: [
       'assets/event1/1 (1).mp4',
       'assets/event1/1 (2).mp4',
       'assets/event1/1 (3).mp4',
       'assets/event1/1 (4).mp4',
       'assets/event1/1 (5).mp4',
-    ]
-  },
-  {
-    event: 'होली मिलन समारोह',
-    videos: [
+
       'assets/event2/1 (1).mp4',
       'assets/event2/1 (3).mp4',
       'assets/event2/1 (4).mp4',
@@ -126,58 +121,86 @@ const videoData = [
       'assets/event2/1 (6).mp4',
       'assets/event2/1 (7).mp4',
     ]
-  }
+  },
   // Your videoData array containing the video URLs in the same sequence as the images
 ];
 
-
 const PhotoGallery = () => {
-
-  const initialImageCount = 3; // Number of images to initially show
+  const initialImageCount = 3;
   const [expanded, setExpanded] = useState(false);
-  const [visibleImages, setVisibleImages] = useState(
-    galleryData.slice(0, initialImageCount)
-  );
 
   const handleViewMore = () => {
-    if (!expanded) {
-      setVisibleImages(galleryData); // Show all images when "View More" is clicked
-    } else {
-      setVisibleImages(galleryData.slice(0, initialImageCount)); // Show initial set of images when "View Less" is clicked
-    }
-    setExpanded(!expanded); // Toggle expanded state
+    setExpanded(!expanded);
   };
+
+  // CSS styles for the thumbnail
+  const thumbnailStyle = {
+    width: '50px',
+    height: '50px',
+    objectFit: 'cover',
+    objectPosition: 'center',
+  };
+
+  // CSS styles for the main images in the slider
+  const mainImageStyle = {
+    objectFit: 'contain',
+    maxHeight: '500px',
+  };
+
+  // Create an array of objects for the ImageGallery to display both main images and thumbnails
+  const galleryItems = galleryData.map((item) => ({
+    original: item.original,
+    thumbnail: item.thumbnail,
+    originalAlt: item.originalAlt,
+    thumbnailAlt: item.thumbnailAlt,
+  }));
 
   return (
     <>
-    <div className="jumbotron pt-3 mx-4">
-      <h1>फोटो गैलरी</h1>
-      <p>कल्पना की उड़ान, रंगों की दुनिया में खोये ख्वाब!</p>
-      <Container className="my-5">
-        <Row>
-          <Col>
-            <ImageGallery
-              items={visibleImages}
-              showFullscreenButton={false}
-              showPlayButton={false}
-              showNav={false}
-              showBullets
-              lazyLoad
-              slideInterval={5000}
-              slideDuration={450}
-              slideOnThumbnailOver />
-          </Col>
-        </Row>
-        <div className="d-flex justify-content-center align-items-center">
-          <Button className="bg-success text-white" variant="text-white" onClick={handleViewMore}>
-            {expanded ? "View Less" : "View More"}
-          </Button>
-        </div>
-      </Container>
-    </div>
-    <Gallery photoData={photoData} videoData={videoData} />
+      <div className="jumbotron pt-3 mx-4">
+        {/* ... */}
+        <Container className="my-2">
+          <Row>
+            <Col>
+              {/* Apply the thumbnailStyle and mainImageStyle to the ImageGallery component */}
+              <ImageGallery
+                items={expanded ? galleryItems : galleryItems.slice(0, initialImageCount)}
+                showFullscreenButton={false}
+                showPlayButton={false}
+                showNav={false}
+                showBullets
+                lazyLoad
+                slideInterval={5000}
+                slideDuration={450}
+                slideOnThumbnailOver
+                thumbnailPosition="bottom"
+                additionalClass="custom-image-gallery"
+                renderItem={(item) => (
+                  <div className="image-gallery-image">
+                    <img src={item.original} alt={item.originalAlt} style={mainImageStyle} />
+                  </div>
+                )}
+                renderThumbInner={(item) => (
+                  <div className="image-gallery-thumbnail-inner">
+                    <img src={item.thumbnail} alt={item.thumbnailAlt} style={thumbnailStyle} />
+                  </div>
+                )}
+              />
+            </Col>
+          </Row>
+          <div className="d-flex justify-content-center align-items-center">
+            <Button className="bg-success text-white" variant="text-white" onClick={handleViewMore}>
+              {expanded ? 'View Less' : 'View More'}
+            </Button>
+          </div>
+        </Container>
+      </div>
+      <Gallery photoData={photoData} videoData={videoData} />
     </>
   );
 };
 
 export default PhotoGallery;
+
+
+// <Gallery photoData={photoData} videoData={videoData} />

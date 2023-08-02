@@ -53,12 +53,12 @@ const Gallery = ({ photoData, videoData }) => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className=" mt-3 p-5 bg-light">
       {/* ... (existing code) */}
 
       {photoData.map((event, eventIndex) => (
-        <div key={eventIndex} className="mb-4">
-          <h3>{event.event}</h3>
+        <div key={eventIndex} className="mb-5 mt-2">
+          <h2 className='fw-bold'>{event.event}</h2>
           <div className="row">
             {event.photos.map((photoUrl, photoIndex) => (
               <div key={photoIndex} className="col-md-2 mb-3">
@@ -74,8 +74,8 @@ const Gallery = ({ photoData, videoData }) => {
         </div>
       ))}
       {videoData.map((event, eventIndex) => (
-        <div key={eventIndex} className="mb-4">
-          <h3>{event.event}</h3>
+        <div key={eventIndex} className="mb-5 mt-2">
+          <h2 className='fw-bold'>{event.event}</h2>
           <div className="row">
             {event.videos.map((videoUrl, videoIndex) => (
               <div key={videoIndex} className="col-md-2 mb-3">
