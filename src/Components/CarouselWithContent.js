@@ -1,34 +1,24 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap'; // Make sure you have installed and imported the react-bootstrap library.
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const CarouselWithContent = () => {
   return (
-    <>
-    
-    <section id="hero" className="heroSlide1">
-        <div className="sideShade d-flex flex-column justify-content-center align-items-end p-5 text-white">
-            <h1 className="display-3 font-weight-bold text-right">उत्तराखंड सांस्कृतिक</h1>
-            <h1 className="display-3 font-weight-bold text-right">एकता मंच</h1>
-            <div className="btn btn-light mt-3 rounded-0 font-weight-normal">
-                <Link to="/about" className="text-dark">Know more</Link>
-            </div>
-        </div>
-    </section>
-      
+    <>    
     <div className='mx-3'>
         <div className="row">
             {/* Left side */}
             <div className="col-md-6 p-3 py-5">
                 <h2>होली मिलन समारोह (मार्च, 2023) </h2>
                 <p>
-                    इसमें समाज एवं मेहनतकश लोगों की सहमति से 2017 में इस सभा का गठन किया गया, जो समाज के विभिन्न क्षेत्रों के असीम प्रेम, सहयोग हेतु किया गया। अथक प्रयास और मेहनत का जीता जागता उदाहरण, अनेकता में एकता को दर्शाता है।
-
-                    इस संस्था को सुचारू और सुव्यवस्थित तरीके से चलाने के लिए, निम्नलिखित निकाय सदस्यों का गठन किया गया और सोसायटी कानून के अनुसार 3 साल की अवधि के लिए चुना गया, पहले निर्वाचित निकाय सदस्यों को महामारी COVID19 के कारण 6 साल के लिए बढ़ा दिया गया था।
-
-                    शुरुआत में निर्वाचित सदस्यों और उत्तराखंड निवासियों के साथ हर साल माता का जागरण आयोजित किया जाता था, साथ ही रक्तदान शिविर, स्वच्छता अभियान, चिकित्सा शिविर जैसी सामाजिक गतिविधियों के साथ जरूरतमंदों को आर्थिक और सामाजिक रूप से मदद की जाती थी।
-
-                    संगठन के कार्यप्रवाह को जारी रखने के लिए फरवरी 2023 में नए निकाय सदस्यों का चुनाव किया गया, जिन्होंने 6 महीने के भीतर विभिन्न
+                हमारे प्यारे उत्तराखंड समुदाय ने इस होली पर एक आदर्श और अद्वितीय समारोह का आयोजन किया, जिसमें हम ने न केवल रंगों का खेल किया, बल्कि हमारे साथी उत्तराखंडी भाइयों और बहनों के साथ गुड़गांव के एक साथी मानव-समूह में एकत्र होकर आनंद उच्छाटने का भी मौका मिला।
+                <br/>
+                <br/>
+                हमारे समुदाय के इस समारोह में फ़ोल्क डांसेस की ख़ास धमाल होती है, जो हमारी रिच उत्तराखंडी संस्कृति को दर्शाते हैं। गर्मियों के आगमन के साथ ही, हमने बावर, चोपड़, जागर, फ़िल्मी और अन्य पारंपरिक डांसेस के साथ साथ बच्चों के खिलौने और ख़ास खाने-पीने की भी व्यवस्था की।
+                इस मिलन समारोह का एक और महत्वपूर्ण पहलू था, वो था भाईचारा और सामूहिक एकता की भावना को साझा करना। गुड़गांव के समुदाय में अधिकांश उत्तराखंडी परिवार एक ही स्थान पर आकर बड़े समूह में उपस्थित होते हैं, जो एक अद्वितीय महसूस कराता है।
+                <br/>
+                <br/>
+                समारोह के दौरान, हमने साथ में बिताए गए समय का आनंद उठाया, और फ़ोल्क डांसेस की झलकियों के साथ हमारी संस्कृति को स्वीकारा। यह समारोह हमें अपनी समुदाय की शक्ति और सामूहिकता का अहसास कराता है, और हम सभी मिलकर एक सजीव और आनंदमय उत्तराखंडी भविष्य की दिशा में कदम बढ़ाते हैं।
                 </p>
             </div>
 
@@ -39,37 +29,43 @@ const CarouselWithContent = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100 text-white"
-                            src="assets/images/scr1.jpg"
+                            // eslint-disable-next-line
+                            src="assets\event2\1 (2).jpg"
                             alt="First slide" />
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/images/scr2.jpg"
+                            // eslint-disable-next-line
+                            src="assets\event2\1 (3).jpg"
                             alt="Second slide" />
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/images/scr3.jpg"
+                            // eslint-disable-next-line
+                            src="assets\event2\1 (4).jpg"
                             alt="Third slide" />
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/images/scr4.jpg"
+                            // eslint-disable-next-line
+                            src="assets\event2\1 (8).jpg"
                             alt="Fourth slide" />
                     </Carousel.Item>
-                    <Carousel.Item>
+                    {/* <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/images/scr5.jpg"
+                            // eslint-disable-next-line
+                            src="assets\event2\1 (11).jpg"
                             alt="Fifth slide" />
-                    </Carousel.Item>
+                    </Carousel.Item> */}
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="assets/images/scr6.jpg"
+                            // eslint-disable-next-line
+                            src="assets\event2\1 (12).jpg"
                             alt="Sixth slide" />
                     </Carousel.Item>
                 </Carousel>

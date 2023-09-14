@@ -11,6 +11,9 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import CarouselWithContent from './Components/CarouselWithContent';
+import ContentWithCarousel from './Components/ContentWithCarousel';
+import ClubJoin from './Components/ClubJoin';
 // import Gallery from './Components/AllPhotos/Gallery';
 // import ImageGallery from './Components/AllPhotos/ImageGallery';
 
@@ -25,8 +28,9 @@ function App() {
         <Routes>
         <Route path="/" element={<Home/>}/>
           <Route exact path="/about" element={<About/>} />
-          <Route path="/events" element={<Events/>} />
+          <Route path="/events" element={<><Events/><CarouselWithContent/><ContentWithCarousel/></>} />
           <Route path="/photos" element={<PhotoGallery/>} />
+          <Route path="/join" element={<ClubJoin/>} />
         </Routes>
 
 

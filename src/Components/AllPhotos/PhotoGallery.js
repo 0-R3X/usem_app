@@ -190,7 +190,7 @@ const PhotoGallery = () => {
           </Row>
           <div className="d-flex justify-content-center align-items-center">
             <Button className="bg-success text-white" variant="text-white" onClick={handleViewMore}>
-              {expanded ? 'View Less' : 'View More'}
+              {expanded ? 'और देखें' : 'कम देखें'}
             </Button>
           </div>
         </Container>

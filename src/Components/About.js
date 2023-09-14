@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import HistoryRecap from './HistoryRecap';
 
 
 export default function About() {
@@ -52,7 +53,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="row mt-5">
+        <div className="row mt-5 sky-blue-background p-4">
 
           <div className="col-md-6">
             <h3>कार्य समिति सदस्य (2023-26)</h3>
@@ -94,7 +95,7 @@ export default function About() {
           </div>
 
 
-          <div className="col-md-6">
+          <div className="col-md-6 sky-blue-background p-4">
             <h3>कार्य समिति सदस्य (2017-23)</h3>
             <p>
               अध्यक्ष   		:पुष्कर सिंह बिष्ट
@@ -120,13 +121,13 @@ export default function About() {
               सलाहकार		: देवेन्द्र भट्ट, केशव डोबरियाल
             </p>
           </div>
-
           <p>
             संपर्क करें:
             पंजीकृत कार्यालय: ए/18, लक्ष्मी गार्डन, पुलिस चौकी के पास, खांडसा रोड, गुरुग्राम (हरियाणा)
             # 9999407619, 9958513832
           </p>
         </div>
+        <HistoryRecap/>
       </div>
     </div>
   )
