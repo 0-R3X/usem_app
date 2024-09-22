@@ -54,7 +54,6 @@ const Gallery = ({ photoData, videoData }) => {
 
   return (
     <div className=" mt-3 p-5 bg-light">
-      {/* ... (existing code) */}
 
       {photoData.map((event, eventIndex) => (
         <div key={eventIndex} className="mb-5 mt-2">
