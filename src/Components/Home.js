@@ -3,7 +3,7 @@ import CarouselWithContent from './CarouselWithContent';
 // import Events from './Events';
 import ContentWithCarousel from './ContentWithCarousel';
 import Member from './Members';
-import UCSlider from './UCSlider';
+// import UCSlider from './UCSlider';
 import Top from './Top';
 import ImgNav from './imgnav';
 
@@ -13,8 +13,8 @@ const Home = () => {
       <Top/>
       <ImgNav/>
       <CarouselWithContent />
-      {/* <UCSlider/> */}
       <ContentWithCarousel />
+      {/* <UCSlider/> */}
       <Member/>
     </div>
   );
