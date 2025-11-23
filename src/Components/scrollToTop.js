@@ -1,52 +1,48 @@
-import React, { useState, useEffect } from 'react';
+// src/Components/AllPhotos/ScrollToTopButton.js
+import React, { useEffect, useState } from "react";
 
-const ScrollToTop = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Show the button when the user scrolls down 300px
-  const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
-
-  // Scroll the page to the top
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+const ScrollToTopButton = () => {
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    const toggleVisible = () => {
+      setVisible(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", toggleVisible);
+    return () => window.removeEventListener("scroll", toggleVisible);
   }, []);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const style = {
+    position: "fixed",
+    bottom: "24px",
+    right: "24px",
+    width: "52px",
+    height: "52px",
+    borderRadius: "50%",
+    backgroundColor: "#198754", // Bootstrap success green
+    color: "white",
+    border: "none", 
+    outline: "none",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+    fontSize: "26px",
+    display: visible ? "flex" : "none",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 2000,
+    transition: "opacity 0.3s ease-in-out",
+  };
+
   return (
-    <div className="scroll-to-top">
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="btn btn-success"
-          style={{
-            position: 'fixed',
-            bottom: '50px',
-            right: '50px',
-            fontSize: '24px',
-            padding: '10px 20px',
-            borderRadius: '50%',
-            zIndex: '1000',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)'
-          }}
-        >
-          ⬆️
-        </button>
-      )}
-    </div>
+    <button style={style} onClick={scrollToTop}>
+      ↑
+    </button>
   );
 };
 
-export default ScrollToTop;
+export default ScrollToTopButton;

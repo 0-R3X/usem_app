@@ -1,3 +1,6 @@
+event 12 - Jagran 01-10-2025
+event 11 - Independence day 15-10-2025
+event 10 - Makraini 29-02-2025
 event 9 - vriksha ropan 2025
 event 8 - jagran 11-10-24
 event 7 - raktdaan shivir 2024

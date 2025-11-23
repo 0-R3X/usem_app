@@ -1,104 +1,129 @@
-import React from 'react';
-import { Carousel } from 'react-bootstrap'; // Make sure you have installed and imported the react-bootstrap library.
-import { Link } from 'react-router-dom';
+// src/Components/WhateverPath/ContentWithCarousel.js
+import React from "react";
+import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-// const imageSize = {
-//   maxWidth: '100%',
-//   height: 'auto',
-// };
+// 🔹 Cloudinary setup
+const CLOUD_NAME = "dkhjn75hj";
+const CLOUDINARY_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto`;
 
-const eventContentStyle = {
-  color: 'white',
-  padding: '20px',
-  borderRadius: '8px',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+// Convert "assets/event8/1 (13).jpg" → Cloudinary URL
+const localToCloudinary = (localPath) => {
+  if (!localPath) return localPath;
+
+  const trimmed = localPath.replace(/^\.?\//, "");
+  if (!trimmed.startsWith("assets/")) return localPath;
+
+  const parts = trimmed.split("/");
+  if (parts.length < 2) return localPath;
+
+  const fileName = parts[parts.length - 1];
+  const folderPath = parts.slice(0, parts.length - 1).join("/");
+
+  const extMatch = fileName.match(/\.[^/.]+$/);
+  const ext = extMatch ? extMatch[0] : "";
+  const baseName = fileName.replace(ext, "");
+
+  const cleanBase = baseName
+    .replace(/\s+/g, "_")
+    .replace(/[()]/g, "");
+
+  return `${CLOUDINARY_BASE}/${folderPath}/${cleanBase}${ext}`;
+};
+
+// 🔹 Config for this hero
+const HERO_EVENT = {
+  title: "जागरण - 2024: आध्यात्मिकता और सामूहिक भक्ति का भव्य आयोजन",
+  description: [
+    "जागरण 2024 एक भव्य और आध्यात्मिक आयोजन रहा, जिसमें श्रद्धालुओं ने भक्तिमय माहौल में माता रानी की आराधना की। इस कार्यक्रम में भजन संध्या, कीर्तन और सांस्कृतिक प्रस्तुतियों ने सभी को मंत्रमुग्ध कर दिया।",
+    "श्रद्धालुओं ने पूरी रात जागकर भक्ति में लीन होकर मां के चरणों में अपनी श्रद्धा अर्पित की। आयोजन स्थल को दीपों और फूलों से सजाया गया, जिससे वातावरण दिव्य आभा से भर गया।",
+    "इस जागरण ने भक्तों को आध्यात्मिक शांति और सकारात्मक ऊर्जा का अनुभव कराया, जिससे समाज में धार्मिक एकता और सद्भाव का संदेश प्रसारित हुआ।",
+  ],
+  images: [
+    "assets/event8/1 (13).jpg",
+    "assets/event8/1 (14).jpg",
+    "assets/event8/1 (68).jpg",
+    "assets/event8/1 (29).jpg",
+  ],
+};
+
+const textCardStyle = {
+  background: "linear-gradient(135deg, #198754, #1f9d63)",
+  color: "white",
+  padding: "24px",
+  borderRadius: "14px",
+  boxShadow: "0 6px 18px rgba(0, 0, 0, 0.25)",
+  height: "100%",
+};
+
+const buttonStyle = {
+  borderRadius: "999px",
+  padding: "10px 22px",
+  fontWeight: 500,
 };
 
 const ContentWithCarousel = () => {
   return (
-    <div className="container-fluid mx-3">
-      <div className="row">
-        {/* Left side */}
-        <div className="col-12 col-md-6 p-3 ">
-          <Carousel>
-            {/* Replace the image paths and alt text with your actual images */}
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="assets/event8/1 (13).jpg"
-                alt="First slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="assets/event8/1 (81).jpg"
-                alt="Second slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="assets/event8/1 (14).jpg"
-                alt="Third slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="assets/event8/1 (68).jpg"
-                alt="Fourth slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="assets/event8/1 (29).jpg"
-                alt="Fifth slide"
-              />
-            </Carousel.Item>
-          </Carousel>
-        </div>
-        
-        {/* Right side */}
-        <div className="col-12 col-md-6 p-5 bg-success" style={eventContentStyle}>
-          <h2>जागरण - 2024: आध्यात्मिकता और सामूहिक भक्ति का भव्य आयोजन</h2>
-          <p>
-              जागरण 2024 एक भव्य और आध्यात्मिक आयोजन रहा, जिसमें श्रद्धालुओं ने भक्तिमय माहौल में माता रानी की आराधना की। इस कार्यक्रम में भजन संध्या, कीर्तन और सांस्कृतिक प्रस्तुतियों ने सभी को मंत्रमुग्ध कर दिया। 
-              <br /><br />
-              श्रद्धालुओं ने पूरी रात जागकर भक्ति में लीन होकर मां के चरणों में अपनी श्रद्धा अर्पित की। आयोजन स्थल को दीपों और फूलों से सजाया गया, जिससे वातावरण दिव्य आभा से भर गया। इस जागरण ने भक्तों को आध्यात्मिक शांति और सकारात्मक ऊर्जा का अनुभव कराया, जिससे समाज में धार्मिक एकता और सद्भाव का संदेश प्रसारित हुआ।
-              </p>
-          <div className="btn btn-light mt-3 rounded-0 font-weight-normal">
-            <Link to="/events" className="text-dark">Know more</Link>
+    <div className="container-fluid mx-3 my-4">
+      <div className="row align-items-center">
+        {/* Left: Carousel */}
+        <div className="col-12 col-md-6 p-3">
+          <div
+            style={{
+              borderRadius: "14px",
+              overflow: "hidden",
+              boxShadow: "0 6px 18px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            <Carousel interval={4000} pause="hover">
+              {HERO_EVENT.images.map((src, idx) => (
+                <Carousel.Item key={idx}>
+                  <img
+                    className="d-block w-100"
+                    src={localToCloudinary(src)}
+                    alt={`${HERO_EVENT.title} - छवि ${idx + 1}`}
+                    loading="lazy"
+                    style={{
+                      maxHeight: "420px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Carousel.Item>
+              ))}
+            </Carousel>
           </div>
         </div>
 
+        {/* Right: Text */}
+        <div className="col-12 col-md-6 p-3 py-4">
+          <div className="bg-success" style={textCardStyle}>
+            <span
+              style={{
+                fontSize: "0.8rem",
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                opacity: 0.8,
+              }}
+            >
+              भक्ति एवं सांस्कृतिक आयोजन
+            </span>
+            <h2 className="mt-2 mb-3" style={{ fontWeight: "700" }}>
+              {HERO_EVENT.title}
+            </h2>
+            {HERO_EVENT.description.map((para, idx) => (
+              <p key={idx} className="mb-2" style={{ fontSize: "0.9rem" }}>
+                {para}
+              </p>
+            ))}
+            <div className="mt-3">
+              <Link to="/events" className="btn btn-light text-dark" style={buttonStyle}>
+                और जानें
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    // <div className="container-fluid mx-3 my-4">
-    //   <div className="row">
-    //     {/* Left side content */}
-    //     <div className="col-12 col-md-6 p-5 bg-success" style={eventContentStyle}>
-    //       <h2>वृक्षारोपण - 2024</h2>
-    //       <p>
-    //         मार्च 2024 में, हमने एक भव्य वृक्षारोपण समारोह का आयोजन किया, जिसका उद्देश्य हमारे प्रदेश की हरियाली और पर्यावरण संरक्षण को बढ़ावा देना था। इस आयोजन में प्रदेश के लोगों, विशेषकर युवाओं और बच्चों की बड़ी भागीदारी रही। हजारों नए पौधे लगाए गए, जिससे न केवल प्राकृतिक सौंदर्य में वृद्धि हुई, बल्कि पर्यावरण संरक्षण के प्रति जागरूकता भी फैली। वृक्षों की देखभाल और उनके महत्व को समझाने के लिए विभिन्न गतिविधियाँ भी आयोजित की गईं।
-    //         <br />
-    //         <br />
-    //         इस वृक्षारोपण समारोह के माध्यम से हमने स्वच्छ और हरित भविष्य की दिशा में एक और महत्वपूर्ण कदम उठाया। सभी सहभागियों ने पर्यावरण सुरक्षा का संकल्प लिया और वृक्षों की रक्षा करने की प्रतिबद्धता जताई। यह आयोजन हमारे समुदाय के सतत विकास और पर्यावरण संरक्षण के प्रति हमारी प्रतिबद्धता का प्रतीक है, जिसमें हमने एक साथ मिलकर हरित और स्वच्छ भविष्य की दिशा में कदम बढ़ाया।
-    //       </p>
-    //     </div>
-
-    //     {/* Right side image */}
-    //     <div className="col-12 col-md-6 p-3">
-    //       <img
-    //         className="d-block w-100"
-    //         src="assets/event6/1 (13).jpg"
-    //         alt="Event 2"
-    //         style={imageSize}
-    //       />
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

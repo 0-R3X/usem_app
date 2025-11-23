@@ -1,440 +1,306 @@
+import React, { useState, useMemo } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
-import galleryData from "./galleryData";
-import Gallery from "./Gallery";
-import React, {useState } from 'react';
+import ImageModal from "./ImageModal";
 
+// Cloudinary base URL (public, safe to use in frontend)
+const CLOUD_NAME = "dkhjn75hj";
+const CLOUDINARY_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload`;
 
-const photoData = [
-
-  {
-    event: 'वृक्षारोपण - 2025',
-    photos: [
-      'assets/event9/1 (1).jpg',
-      'assets/event9/1 (2).jpg',
-      'assets/event9/1 (3).jpg',
-      'assets/event9/1 (4).jpg',
-      'assets/event9/1 (5).jpg',
-      'assets/event9/1 (6).jpg',
-      'assets/event9/1 (7).jpg',
-      'assets/event9/1 (8).jpg',
-      'assets/event9/1 (9).jpg',
-      'assets/event9/1 (10).jpg',
-      'assets/event9/1 (11).jpg',
-      'assets/event9/1 (12).jpg',
-      'assets/event9/1 (13).jpg',
-      'assets/event9/1 (14).jpg',
-      'assets/event9/1 (15).jpg',
-      'assets/event9/1 (16).jpg',
-      'assets/event9/1 (17).jpg',
-      'assets/event9/1 (18).jpg',
-      'assets/event9/1 (19).jpg',
-      'assets/event9/1 (20).jpg',
-      'assets/event9/1 (21).jpg',
-      'assets/event9/1 (22).jpg',
-      'assets/event9/1 (23).jpg',
-      'assets/event9/1 (24).jpg',
-      'assets/event9/1 (25).jpg',
-      'assets/event9/1 (26).jpg',
-    ],
-  },
-
-  {
-    event: 'जागरण - 2024',
-    photos: [
-      'assets/event8/1 (1).jpg',
-      'assets/event8/1 (2).jpg',
-      'assets/event8/1 (3).jpg',
-      'assets/event8/1 (4).jpg',
-      'assets/event8/1 (5).jpg',
-      'assets/event8/1 (6).jpg',
-      'assets/event8/1 (7).jpg',
-      'assets/event8/1 (8).jpg',
-      'assets/event8/1 (9).jpg',
-      'assets/event8/1 (10).jpg',
-      'assets/event8/1 (11).jpg',
-      'assets/event8/1 (12).jpg',
-      'assets/event8/1 (13).jpg',
-      'assets/event8/1 (14).jpg',
-      'assets/event8/1 (15).jpg',
-      'assets/event8/1 (16).jpg',
-      'assets/event8/1 (17).jpg',
-      'assets/event8/1 (18).jpg',
-      'assets/event8/1 (19).jpg',
-      'assets/event8/1 (20).jpg',
-      'assets/event8/1 (21).jpg',
-      'assets/event8/1 (22).jpg',
-      'assets/event8/1 (23).jpg',
-      'assets/event8/1 (24).jpg',
-      'assets/event8/1 (25).jpg',
-      'assets/event8/1 (26).jpg',
-      'assets/event8/1 (27).jpg',
-      'assets/event8/1 (28).jpg',
-      'assets/event8/1 (29).jpg',
-      'assets/event8/1 (30).jpg',
-      'assets/event8/1 (31).jpg',
-      'assets/event8/1 (32).jpg',
-      'assets/event8/1 (33).jpg',
-      'assets/event8/1 (34).jpg',
-      'assets/event8/1 (35).jpg',
-      'assets/event8/1 (36).jpg',
-      'assets/event8/1 (37).jpg',
-      'assets/event8/1 (38).jpg',
-      'assets/event8/1 (39).jpg',
-      'assets/event8/1 (40).jpg',
-      'assets/event8/1 (41).jpg',
-      'assets/event8/1 (42).jpg',
-      'assets/event8/1 (43).jpg',
-      'assets/event8/1 (44).jpg',
-      'assets/event8/1 (45).jpg',
-      'assets/event8/1 (46).jpg',
-      'assets/event8/1 (47).jpg',
-      'assets/event8/1 (48).jpg',
-      'assets/event8/1 (49).jpg',
-      'assets/event8/1 (50).jpg',
-      'assets/event8/1 (51).jpg',
-      'assets/event8/1 (52).jpg',
-      'assets/event8/1 (53).jpg',
-      'assets/event8/1 (54).jpg',
-      'assets/event8/1 (55).jpg',
-      'assets/event8/1 (56).jpg',
-      'assets/event8/1 (57).jpg',
-      'assets/event8/1 (58).jpg',
-      'assets/event8/1 (59).jpg',
-      'assets/event8/1 (60).jpg',
-      'assets/event8/1 (61).jpg',
-      'assets/event8/1 (62).jpg',
-      'assets/event8/1 (63).jpg',
-      'assets/event8/1 (64).jpg',
-      'assets/event8/1 (65).jpg',
-      'assets/event8/1 (66).jpg',
-      'assets/event8/1 (67).jpg',
-      'assets/event8/1 (68).jpg',
-      'assets/event8/1 (69).jpg',
-      'assets/event8/1 (70).jpg',
-      'assets/event8/1 (71).jpg',
-      'assets/event8/1 (72).jpg',
-      'assets/event8/1 (73).jpg',
-      'assets/event8/1 (74).jpg',
-      'assets/event8/1 (75).jpg',
-      'assets/event8/1 (76).jpg',
-      'assets/event8/1 (77).jpg',
-      'assets/event8/1 (78).jpg',
-      'assets/event8/1 (79).jpg',
-      'assets/event8/1 (80).jpg',
-    ],
-  },
-  
-  {
-    event: 'रक्तदान शिविर - 2024',
-    photos: [
-      'assets/event7/1 (1).jpg',
-      'assets/event7/1 (2).jpg',
-      'assets/event7/1 (3).jpg',
-      'assets/event7/1 (4).jpg',
-      'assets/event7/1 (5).jpg',
-      'assets/event7/1 (6).jpg',
-      'assets/event7/1 (7).jpg',
-      'assets/event7/1 (8).jpg',
-      'assets/event7/1 (9).jpg',
-      'assets/event7/1 (10).jpg',
-      'assets/event7/1 (11).jpg',
-      'assets/event7/1 (12).jpg',
-      'assets/event7/1 (13).jpg',
-      'assets/event7/1 (14).jpg',
-      'assets/event7/1 (15).jpg',
-    ],
-  },
-
-  {
-    event: 'वृक्षारोपण - 2024',
-    photos: [
-      'assets/event6/1 (1).jpg',
-      'assets/event6/1 (2).jpg',
-      'assets/event6/1 (3).jpg',
-      'assets/event6/1 (4).jpg',
-      'assets/event6/1 (5).jpg',
-      'assets/event6/1 (6).jpg',
-      'assets/event6/1 (7).jpg',
-      'assets/event6/1 (8).jpg',
-      'assets/event6/1 (9).jpg',
-      'assets/event6/1 (10).jpg',
-      'assets/event6/1 (11).jpg',
-      'assets/event6/1 (12).jpg',
-      'assets/event6/1 (13).jpg',
-      'assets/event6/1 (14).jpg',
-      'assets/event6/1 (15).jpg',
-      'assets/event6/1 (16).jpg',
-      'assets/event6/1 (17).jpg',
-      'assets/event6/1 (18).jpg',
-    ],
-  },
-
-  {
-    event: 'मकरेणी कौथिक महोत्सव',
-      photos: [
-        'assets/event4/1 (1).jpg',
-        'assets/event4/1 (2).jpg',
-        'assets/event4/1 (3).jpg',
-        'assets/event4/1 (4).jpg',
-        'assets/event4/1 (5).jpg',
-        'assets/event4/1 (6).jpg',
-        'assets/event4/1 (7).jpg',
-        'assets/event4/1 (8).jpg',
-        'assets/event4/1 (9).jpg',
-        'assets/event4/1 (10).jpg',
-        'assets/event4/1 (11).jpg',
-        'assets/event4/1 (12).jpg',
-        'assets/event4/1 (13).jpg',
-        'assets/event4/1 (14).jpg',
-        'assets/event4/1 (15).jpg',
-        'assets/event4/1 (16).jpg',
-        'assets/event4/1 (17).jpg',
-        'assets/event4/1 (18).jpg',
-        'assets/event4/1 (19).jpg',
-        'assets/event4/1 (20).jpg',
-      ],
-  },
-  
-  {
-  event: 'माता के लिए जागरण',
-  photos: [
-    'assets/event5/1 (1).jpg',
-    'assets/event5/1 (2).jpg',
-    'assets/event5/1 (3).jpg',
-    'assets/event5/1 (4).jpg',
-    'assets/event5/1 (5).jpg',
-    'assets/event5/1 (6).jpg',
-    'assets/event5/1 (7).jpg',
-    'assets/event5/1 (8).jpg',
-    'assets/event5/1 (9).jpg',
-    'assets/event5/1 (10).jpg',
-    'assets/event5/1 (11).jpg',
-    'assets/event5/1 (12).jpg',
-    'assets/event5/1 (13).jpg',
-    'assets/event5/1 (14).jpg',
-    'assets/event5/1 (15).jpg',
-    'assets/event5/1 (16).jpg',
-    'assets/event5/1 (17).jpg',
-    'assets/event5/1 (18).jpg',
-    'assets/event5/1 (19).jpg',
-    'assets/event5/1 (20).jpg',
-    'assets/event5/1 (21).jpg',
-    'assets/event5/1 (22).jpg',
-    'assets/event5/1 (23).jpg',
-    'assets/event5/1 (24).jpg',
-    'assets/event5/1 (25).jpg',
-    'assets/event5/1 (26).jpg',
-    'assets/event5/1 (27).jpg',
-    'assets/event5/1 (28).jpg',
-    'assets/event5/1 (29).jpg',
-    'assets/event5/1 (30).jpg',
-    'assets/event5/1 (31).jpg',
-    'assets/event5/1 (32).jpg',
-    'assets/event5/1 (33).jpg',
-    'assets/event5/1 (34).jpg',
-    'assets/event5/1 (35).jpg',
-    'assets/event5/1 (36).jpg',
-    'assets/event5/1 (37).jpg',
-    'assets/event5/1 (38).jpg',
-    'assets/event5/1 (39).jpg',
-    'assets/event5/1 (40).jpg',
-    'assets/event5/1 (41).jpg',
-    'assets/event5/1 (42).jpg',
-
-  ],
-},
-
-  {
-  event: 'एकता मंच',
-  photos: [
-    'assets/event0/1 (1).jpg',
-    'assets/event0/1 (2).jpg',
-    'assets/event0/1 (3).jpg',
-    'assets/event0/1 (4).jpg',
-    'assets/event0/1 (5).jpg',
-    'assets/event0/1 (6).jpg',
-    'assets/event0/1 (7).jpg',
-    'assets/event0/1 (8).jpg',
-    'assets/event0/1 (9).jpg',
-    'assets/event0/1 (10).jpg',
-    'assets/event0/1 (11).jpg',
-    'assets/event0/1 (12).jpg',
-    'assets/event0/1 (13).jpg',
-    'assets/event0/1 (14).jpg',
-    'assets/event0/1 (15).jpg',
-    'assets/event0/1 (16).jpg',
-    'assets/event0/1 (17).jpg',
-    'assets/event0/1 (18).jpg',
-    'assets/event0/1 (19).jpg',
-    'assets/event0/1 (20).jpg',
-    'assets/event0/1 (21).jpg',
-    'assets/event0/1 (22).jpg',
-    'assets/event0/1 (23).jpg',
-    'assets/event0/1 (24).jpg',
-    'assets/event0/1 (25).jpg',
-    'assets/event0/1 (26).jpg',
-    'assets/event0/1 (27).jpg',
-    ]
-  },
-  {
-    event: 'रक्तदान शिविर - 2023',
-    photos: [
-      'assets/event1/1 (1).jpg',
-      'assets/event1/1 (2).jpg',
-      'assets/event1/1 (3).jpg',
-      'assets/event1/1 (4).jpg',
-      'assets/event1/1 (5).jpg',
-      'assets/event1/1 (6).jpg',
-      'assets/event1/1 (7).jpg',
-      'assets/event1/1 (8).jpg',
-      'assets/event1/1 (9).jpg',
-      'assets/event1/1 (10).jpg',
-      'assets/event1/1 (11).jpg',
-      'assets/event1/1 (12).jpg',
-      'assets/event1/1 (13).jpg',
-      'assets/event1/1 (14).jpg',
-      'assets/event1/1 (15).jpg',
-      'assets/event1/1 (16).jpg',
-      'assets/event1/1 (17).jpg',
-      'assets/event1/1 (18).jpg',
-      'assets/event1/1 (19).jpg',
-    ],
-  },
-
-
-  {
-    event: 'होली मिलन समारोह',
-    photos: [
-      'assets/event2/1 (1).jpg',
-      'assets/event2/1 (2).jpg',
-      'assets/event2/1 (3).jpg',
-      'assets/event2/1 (4).jpg',
-      'assets/event2/1 (5).jpg',
-      'assets/event2/1 (6).jpg',
-      'assets/event2/1 (7).jpg',
-      'assets/event2/1 (8).jpg',
-      'assets/event2/1 (9).jpg',
-      'assets/event2/1 (10).jpg',
-      'assets/event2/1 (11).jpg',
-      'assets/event2/1 (12).jpg',
-      'assets/event2/1 (13).jpg',
-      'assets/event2/1 (14).jpg',
-      'assets/event2/1 (15).jpg',
-      'assets/event2/1 (16).jpg',
-    ],
-  },
-
-  
-  // Add more events
+// 🔹 Configure your image events here.
+// - id:    numeric part of "eventN"
+// - name:  display name for the event
+// - imageCount: how many images are in that event folder
+//
+// To add a new event:
+// 1) Upload assets/eventN to Cloudinary with your script
+// 2) Add { id: N, name: '...', imageCount: X } here
+const IMAGE_EVENTS = [
+  { id: 11, name: "स्वतंत्रता दिवस - 2025", imageCount: 33 },
+  { id: 10, name: "मकरेणी कौथिक महोत्सव - 2025", imageCount: 21 },
+  { id: 9, name: "वृक्षारोपण - 2025", imageCount: 26 },
+  { id: 8, name: "जागरण - 2024", imageCount: 80 },
+  { id: 7, name: "रक्तदान शिविर - 2024", imageCount: 15 },
+  { id: 6, name: "वृक्षारोपण - 2024", imageCount: 18 },
+  { id: 5, name: "माता के लिए जागरण", imageCount: 42 },
+  { id: 4, name: "मकरेणी कौथिक महोत्सव", imageCount: 19 },
+  { id: 2, name: "होली मिलन समारोह", imageCount: 15 },
+  { id: 1, name: "रक्तदान शिविर - 2023", imageCount: 19 },
+  { id: 0, name: "एकता मंच", imageCount: 27 },
 ];
 
-const videoData = [
-  {
-    event: 'वीडियो',
-    videos: [
-      'assets/event1/1 (1).mp4',
-      'assets/event1/1 (2).mp4',
-      'assets/event1/1 (3).mp4',
-      'assets/event1/1 (4).mp4',
+// 🔹 Simple list of videos (still local for now).
+// You can later move these to Cloudinary "video/upload" and just swap the URLs.
+const VIDEOS = [
+  "assets/event1/1 (1).mp4",
+  "assets/event1/1 (2).mp4",
+  "assets/event1/1 (3).mp4",
+  "assets/event1/1 (4).mp4",
 
-      'assets/event2/1 (1).mp4',
-      'assets/event2/1 (2).mp4',
-      'assets/event2/1 (3).mp4',
-      'assets/event2/1 (4).mp4',
-      'assets/event2/1 (5).mp4',
-      'assets/event2/1 (6).mp4',
-      'assets/event2/1 (7).mp4',
+  "assets/event2/1 (1).mp4",
+  "assets/event2/1 (2).mp4",
+  "assets/event2/1 (3).mp4",
+  "assets/event2/1 (4).mp4",
+  "assets/event2/1 (5).mp4",
+  "assets/event2/1 (6).mp4",
+  "assets/event2/1 (7).mp4",
 
-      'assets/event6/1 (1).mp4',
-      'assets/event6/1 (2).mp4',
+  "assets/event6/1 (1).mp4",
+  "assets/event6/1 (2).mp4",
 
-      'assets/event7/1 (1).mp4',
-      'assets/event7/1 (2).mp4',
-      'assets/event7/1 (3).mp4',
-      'assets/event7/1 (4).mp4',
-    ]
-  },
-  // Your videoData array containing the video URLs in the same sequence as the images
+  "assets/event7/1 (1).mp4",
+  "assets/event7/1 (2).mp4",
+  "assets/event7/1 (3).mp4",
+  "assets/event7/1 (4).mp4",
+
+  "assets/event10/1 (1).mp4",
+  "assets/event10/1 (2).mp4",
+  "assets/event10/1 (3).mp4",
+  "assets/event10/1 (4).mp4",
+  "assets/event10/1 (5).mp4",
+
+  "assets/event11/1 (1).mp4",
+  "assets/event11/1 (2).mp4",
+  "assets/event11/1 (3).mp4",
+  "assets/event11/1 (4).mp4",
+  "assets/event11/1 (5).mp4",
+  "assets/event11/1 (6).mp4",
+  "assets/event11/1 (7).mp4",
 ];
+
+// 🔹 Build a Cloudinary URL for an image in assets/event{eventId}/1_{index}.jpg
+// variant = 'thumb' | 'full'
+const getCloudinaryImageUrl = (eventId, index, variant = "thumb") => {
+  const transform =
+    variant === "thumb"
+      ? "f_auto,q_auto,w_320,c_fill"
+      : "f_auto,q_auto,w_1600";
+
+  // We assume all images are jpg as in your original setup
+  return `${CLOUDINARY_BASE}/${transform}/assets/event${eventId}/1_${index}.jpg`;
+};
 
 const PhotoGallery = () => {
-  const initialImageCount = 3;
-  const [expanded, setExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeMedia, setActiveMedia] = useState(null);
+  // activeMedia:
+  // { type: 'image', eventId, imageIndex }
+  // { type: 'video', videoIndex }
 
-  const handleViewMore = () => {
-    setExpanded(!expanded);
+  // Sort events by id desc so latest (highest eventN) is first
+  const sortedEvents = useMemo(
+    () => [...IMAGE_EVENTS].sort((a, b) => b.id - a.id),
+    []
+  );
+
+  const openImageModal = (eventId, imageIndex) => {
+    setActiveMedia({ type: "image", eventId, imageIndex });
+    setIsModalOpen(true);
   };
 
-  const thumbnailStyle = {
-    width: '50px',
-    height: '50px',
-    objectFit: 'cover',
-    objectPosition: 'center',
+  const openVideoModal = (videoIndex) => {
+    setActiveMedia({ type: "video", videoIndex });
+    setIsModalOpen(true);
   };
 
-  const mainImageStyle = {
-    objectFit: 'contain',
-    maxHeight: '500px',
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setActiveMedia(null);
   };
 
-  const galleryItems = galleryData.map((item) => ({
-    original: item.original,
-    thumbnail: item.thumbnail,
-    originalAlt: item.originalAlt,
-    thumbnailAlt: item.thumbnailAlt,
-  }));
+  const handlePrev = () => {
+    if (!activeMedia) return;
+
+    if (activeMedia.type === "image") {
+      const event = IMAGE_EVENTS.find((e) => e.id === activeMedia.eventId);
+      if (!event) return;
+
+      const newIndex = Math.max(1, activeMedia.imageIndex - 1);
+      setActiveMedia({ ...activeMedia, imageIndex: newIndex });
+    } else if (activeMedia.type === "video") {
+      const newIndex = Math.max(0, activeMedia.videoIndex - 1);
+      setActiveMedia({ ...activeMedia, videoIndex: newIndex });
+    }
+  };
+
+  const handleNext = () => {
+    if (!activeMedia) return;
+
+    if (activeMedia.type === "image") {
+      const event = IMAGE_EVENTS.find((e) => e.id === activeMedia.eventId);
+      if (!event) return;
+
+      const newIndex = Math.min(event.imageCount, activeMedia.imageIndex + 1);
+      setActiveMedia({ ...activeMedia, imageIndex: newIndex });
+    } else if (activeMedia.type === "video") {
+      const newIndex = Math.min(VIDEOS.length - 1, activeMedia.videoIndex + 1);
+      setActiveMedia({ ...activeMedia, videoIndex: newIndex });
+    }
+  };
+
+  const currentMediaUrl = (() => {
+    if (!activeMedia) return null;
+
+    if (activeMedia.type === "image") {
+      return getCloudinaryImageUrl(
+        activeMedia.eventId,
+        activeMedia.imageIndex,
+        "full"
+      );
+    } else if (activeMedia.type === "video") {
+      return VIDEOS[activeMedia.videoIndex] || null;
+    }
+    return null;
+  })();
+
+  const currentMediaType = activeMedia?.type || "image";
 
   return (
     <>
       <div className="jumbotron pt-3 mx-4">
         <Container className="my-2">
-          <Row>
-            <Col>
-              <ImageGallery
-                items={expanded ? galleryItems : galleryItems.slice(0, initialImageCount)}
-                showFullscreenButton={false}
-                showPlayButton={false}
-                showNav={false}
-                showBullets
-                lazyLoad
-                slideInterval={5000}
-                slideDuration={450}
-                slideOnThumbnailOver
-                thumbnailPosition="bottom"
-                additionalClass="custom-image-gallery"
-                renderItem={(item) => (
-                  <div className="image-gallery-image">
-                    <img 
-                      src={item.original} 
-                      alt={item.originalAlt} 
-                      style={mainImageStyle} 
-                      loading="lazy" // Lazy load for main images
-                    />
-                  </div>
+          <Row className="mb-4">
+            <Col className="text-center">
+              <div
+                style={{
+                  background: "#198754",
+                  padding: "18px 20px",
+                  borderRadius: "12px",
+                  boxShadow: "0 4px 14px rgba(0,0,0,0.18)",
+                  color: "#ffffff",
+                }}
+              >
+                <h2 className="fw-bold mb-1" style={{ color: "white" }}>
+                  फोटो एवं वीडियो गैलरी
+                </h2>
+
+                {sortedEvents.length > 0 && (
+                  <p className="mb-0" style={{ fontSize: "1rem", color: "white" }}>
+                    नवीनतम कार्यक्रम:{" "}
+                    <strong style={{ color: "#F9F9F9" }}>{sortedEvents[0].name}</strong>
+                  </p>
                 )}
-                renderThumbInner={(item) => (
-                  <div className="image-gallery-thumbnail-inner">
-                    <img 
-                      src={item.thumbnail} 
-                      alt={item.thumbnailAlt} 
-                      style={thumbnailStyle} 
-                      loading="lazy" // Lazy load for thumbnails
-                    />
-                  </div>
-                )}
-              />
+              </div>
             </Col>
           </Row>
-          <div className="d-flex justify-content-center align-items-center">
-            <Button className="bg-success text-white" variant="text-white" onClick={handleViewMore}>
-              {expanded ? 'कम देखें' : 'और देखें'}
-            </Button>
-          </div>
+
+          {/* IMAGE GALLERY */}
+          <Row className="mt-4">
+            <Col>
+              {sortedEvents.map((event) => (
+                <div key={event.id} className="mb-4">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5 className="mb-0">{event.name}</h5>
+                    <span className="text-muted" style={{ fontSize: "0.85rem" }}>
+                      {event.imageCount} फोटो
+                    </span>
+                  </div>
+
+                  <div className="d-flex flex-wrap gap-2">
+                    {Array.from({ length: event.imageCount }, (_, i) => {
+                      const idx = i + 1;
+                      const thumbUrl = getCloudinaryImageUrl(
+                        event.id,
+                        idx,
+                        "thumb"
+                      );
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          className="p-0 border-0 bg-transparent"
+                          onClick={() => openImageModal(event.id, idx)}
+                        >
+                          <img
+                            src={thumbUrl}
+                            alt={`${event.name} - फोटो ${idx}`}
+                            loading="lazy"
+                            style={{
+                              width: 110,
+                              height: 110,
+                              objectFit: "cover",
+                              borderRadius: 8,
+                              boxShadow:
+                                "0 1px 3px rgba(0,0,0,0.18)",
+                            }}
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </Col>
+          </Row>
+
+          {/* VIDEO SECTION */}
+          {VIDEOS.length > 0 && (
+            <Row className="mt-4">
+              <Col>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <h5 className="mb-0">वीडियो</h5>
+                  <span
+                    className="text-muted"
+                    style={{ fontSize: "0.85rem" }}
+                  >
+                    {VIDEOS.length} वीडियो
+                  </span>
+                </div>
+
+                <div className="d-flex flex-wrap gap-2">
+                  {VIDEOS.map((videoSrc, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className="p-0 border-0 bg-transparent"
+                      onClick={() => openVideoModal(index)}
+                    >
+                      <video
+                        src={videoSrc}
+                        style={{
+                          width: 140,
+                          height: 90,
+                          objectFit: "cover",
+                          borderRadius: 8,
+                          boxShadow:
+                            "0 1px 3px rgba(0,0,0,0.18)",
+                        }}
+                        preload="metadata"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </Col>
+            </Row>
+          )}
+
+          {/* Small note / CTA if you want */}
+          <Row className="mt-4">
+            <Col className="text-center">
+              <Button
+                variant="success"
+                className="px-4"
+                onClick={() => {
+                  // Scroll to top of gallery, or any future action.
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                ऊपर जाएँ
+              </Button>
+            </Col>
+          </Row>
         </Container>
       </div>
-      <Gallery photoData={photoData} videoData={videoData} />
+
+      {/* MODAL FOR IMAGES & VIDEOS */}
+      <ImageModal
+        isOpen={isModalOpen}
+        mediaUrl={currentMediaUrl}
+        mediaType={currentMediaType}
+        mediaOrientation="landscape"
+        onClose={closeModal}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
     </>
   );
 };

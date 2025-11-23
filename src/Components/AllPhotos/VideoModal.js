@@ -1,45 +1,97 @@
-import React from 'react';
-import Modal from 'react-modal';
+// src/Components/AllPhotos/VideoModal.js
+import React from "react";
+import ReactModal from "react-modal";
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    maxWidth: '80vw',
-    maxHeight: '80vh',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    border: 'none',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-};
-
-Modal.setAppElement('#root');
+ReactModal.setAppElement("#root");
 
 const VideoModal = ({ isOpen, mediaUrl, mediaType, onClose, onPrev, onNext }) => {
+  const handleModalClose = () => {
+    onClose && onClose();
+  };
+
+  // Same fixed-position navigation buttons as ImageModal
+  const baseNavButtonStyle = {
+    position: "fixed",
+    top: "50%",
+    transform: "translateY(-50%)",
+    zIndex: 1001,
+    cursor: "pointer",
+    userSelect: "none",
+  };
+
+  const prevButtonStyle = {
+    ...baseNavButtonStyle,
+    left: "24px",
+  };
+
+  const nextButtonStyle = {
+    ...baseNavButtonStyle,
+    right: "24px",
+  };
+
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
-      <div>
-        {mediaType === 'video' && (
-          <video controls autoPlay>
-            <source src={mediaUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={handleModalClose}
+      contentLabel="Video Modal"
+      className="media-modal"
+      overlayClassName="media-modal-overlay"
+      ariaHideApp={false}
+      shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
+    >
+      <div className="modal-navigation">
+
+        {/* 🔹 FIXED PREV BUTTON */}
+        <div
+          className="navigation-button prev-button"
+          style={prevButtonStyle}
+          onClick={onPrev}
+        >
+          &lt;
+        </div>
+
+        {/* VIDEO CONTENT */}
+        {mediaType === "video" && mediaUrl ? (
+          <>
+            <video
+              controls
+              autoPlay
+              className="modal-video"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "80vh",
+                borderRadius: "10px",
+              }}
+            >
+              <source src={mediaUrl} type="video/mp4" />
+              आपका ब्राउज़र वीडियो प्लेबैक को सपोर्ट नहीं करता।
+            </video>
+
+            {/* Close Button */}
+            <div className="close-button" onClick={handleModalClose}>
+              <span>×</span>
+            </div>
+          </>
+        ) : (
+          <div className="d-flex flex-column align-items-center justify-content-center text-muted">
+            <p>कोई वीडियो उपलब्ध नहीं है।</p>
+            <div className="close-button" onClick={handleModalClose}>
+              <span>×</span>
+            </div>
+          </div>
         )}
+
+        {/* 🔹 FIXED NEXT BUTTON */}
+        <div
+          className="navigation-button next-button"
+          style={nextButtonStyle}
+          onClick={onNext}
+        >
+          &gt;
+        </div>
       </div>
-      <button onClick={onPrev} className="btn btn-light btn-lg">
-        &lt;
-      </button>
-      <button onClick={onNext} className="btn btn-light btn-lg">
-        &gt;
-      </button>
-    </Modal>
+    </ReactModal>
   );
 };
 
