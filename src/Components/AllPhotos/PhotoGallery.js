@@ -52,7 +52,6 @@ const VIDEOS = [
   "assets/event7/1 (3).mp4",
   "assets/event7/1 (4).mp4",
 
-  "assets/event10/1 (1).mp4",
   "assets/event10/1 (2).mp4",
   "assets/event10/1 (3).mp4",
   "assets/event10/1 (4).mp4",

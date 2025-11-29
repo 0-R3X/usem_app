@@ -1,3 +1,8 @@
+/* ==========================================================================
+   GLOBAL / APP
+   - Core app-level styles and small utilities
+   ========================================================================== */
+
 .App {
   text-align: center;
 }
@@ -37,27 +42,15 @@
   }
 }
 
-.picture{
+/* Small layout helpers used across components */
+.picture {
   width: 30%;
   height: 100%;
 }
-.box2{
+.box2 {
   width: 70%;
 }
-.image-container {
-  width: 100%; /* Set the image width to 100% of the parent container */
-  height: 100%; /* Set the image height to 100% of the parent container */
-  object-fit: cover; /* Optional: To maintain aspect ratio and cover the entire container */
-  padding-top: .9vw;
-  padding-right: 1vw;
-  padding-bottom: 1vw;
-}
-.heading{
-  font-family: 'Libre Baskerville', serif;
-}
-.paragraph{
-  font-family: 'Kenia', cursive;
-}.bigContainer{
+.bigContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,6 +58,16 @@
   border: green 2px solid;
   flex-wrap: wrap;
 }
+
+/* Typography helpers */
+.heading {
+  font-family: 'Libre Baskerville', serif;
+}
+.paragraph {
+  font-family: 'Kenia', cursive;
+}
+
+/* logo styling used in header/navbar */
 .logo {
   position: relative;
   top: -8px; /* Adjust the value to control how much the logo protrudes out */
@@ -76,84 +79,137 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow for the 3D effect */
 }
 
-/* Home Screen CasrouselWithCntent Main Image CSS*/
+/* Generic section/element defaults (keeps semantics consistent) */
 section {
   display: block;
 }
 
-#hero {
-  width: 100%;
-  height: calc(100vh - 109px);
+/* ==========================================================================
+   HERO / TOP (Top.js) — image hero, overlay and content
+   - Replaces fragile :after trick with an <img> and object-fit
+   ========================================================================== */
+
+#hero.hero {
   position: relative;
+  width: 100%;
+  /* If you want the hero to be exactly full viewport minus header (109px), keep calc;
+     otherwise use 100vh for full screen. Adjust the 109px to your header height. */
+  height: calc(100vh - 109px);
   overflow: hidden;
-}
-#hero:after {
-  content: '';
   display: block;
-  position: absolute;
-  width: calc(100vw + 50px);
+}
+
+/* Picture wrapper to ensure no extra spacing */
+.hero-picture {
+  display: block;
+  width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  transform: translateX(0px);
-  animation: heroAnim 10s linear infinite alternate;
-  transition: all 1s ease-out;
 }
 
-.heroSlide1:after {
-  background-image: url(../public/assets/images/jaikedar1.jpg);
+/* The actual image uses object-fit so it always covers and centers */
+.hero-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* COVER ensures the image fills while keeping center */
+  object-position: center; /* center the focal point */
+  -o-object-fit: cover;
+  -o-object-position: center;
+  user-select: none;
+  pointer-events: none;    /* so clicks hit overlay or content, not image */
 }
 
-/* Media Query for Mobile Phones */
-@media (max-width: 768px) {
-  #hero:after {
-    width: calc(100vw + 20px); /* Adjust width for mobile screens */
-  }
-
-  .heroSlide1:after {
-    background-size: contain; /* Adjust background size for mobile screens */
-  }
-}
-
-/* *, ::after, ::before {
-  box-sizing: border-box;
-} */
-
-#hero .sideShade {
-  width: 0%;
-  height: 0%;
-  background-color: #014421D0;
+/* Soft overlay to darken image so white text reads well */
+.hero-overlay {
   position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(1,68,33,0.35), rgba(1,68,33,0.45));
   z-index: 2;
-  right: 0px;
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-  animation: sideShadeAnim 0.0s cubic-bezier(.38,1.08,.98,1) 1s 1 forwards;
-}
-/* #hero .sideShade h4 {
-  letter-spacing: 5px;
-}
-@keyframes sideShadeAnim{
-	100%{
-		clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-	}
-} */
-@media only screen and (max-width: 700px) {
-    #hero .sideShade {
-        width: 100%;
-        text-align: center
-    }
-    #hero .sideShade h1{
-        text-align: center
-    }
-    #quickLinks img {
-        width: 40px;
-        height: 40px;
-    }
-    #quickLinks p{
-        font-size   : 14px;
-    }
+  pointer-events: none;
 }
 
+/* Content sits above overlay */
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  transform: translateY(-50%);
+  z-index: 3;
+  padding-right: 1rem;
+}
+
+/* Make content sit nicely on small screens */
+@media (max-width: 992px) {
+  #hero.hero {
+    height: calc(100vh - 80px); /* if header is shorter on mobile */
+  }
+  .hero-content {
+    left: 5%;
+    right: 5%;
+    text-align: left;
+  }
+}
+
+/* Utility: full-bleed background section that keeps inner .container centered */
+.full-bleed-section {
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  /* vertical padding for the section — adjust as needed */
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  box-sizing: border-box;
+}
+
+/* Keep background color of the outer wrapper; inner .container keeps content aligned */
+.full-bleed-section > .container {
+  /* Optional: reduce vertical spacing inside container if you want a tighter block */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Mobile tweak — if you want the bleed to touch edges on mobile as well */
+@media (max-width: 576px) {
+  .full-bleed-section {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Smaller screens: center the content and stack */
+@media (max-width: 576px) {
+  .hero-content {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 40px);
+    text-align: center;
+  }
+}
+
+/* Legacy sideShade rules preserved (some pages still use .sideShade) */
+@media only screen and (max-width: 700px) {
+  #hero .sideShade {
+    width: 100%;
+    text-align: center;
+  }
+  #hero .sideShade h1 {
+    text-align: center;
+  }
+  #quickLinks img {
+    width: 40px;
+    height: 40px;
+  }
+  #quickLinks p {
+    font-size: 14px;
+  }
+}
+
+/* fullscreen-image utility (keeps compatibility with other uses) */
 .fullscreen-image {
   width: 100%;
   height: 100%;
@@ -163,7 +219,7 @@ section {
   filter: brightness(50%);
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 .image-text {
@@ -176,11 +232,15 @@ section {
   filter: brightness(200%);
 }
 
+/* custom background util used in a few places */
 .custom-bg-color {
-  background-color: #87CEEB; 
+  background-color: #87CEEB;
 }
 
-/* About Picture CSS */
+/* ==========================================================================
+   ABOUT SECTION (About.js)
+   - about slide, image background
+   ========================================================================== */
 
 #abt {
   width: 100%;
@@ -188,26 +248,29 @@ section {
   overflow: hidden;
 }
 
+/* note: keeping original nested media query as-is but moved to top-level for compatibility */
 .aboutSlide {
   background-image: url(../public/assets/images/abt0.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   padding-bottom: 50%; /* Adjust the padding to maintain aspect ratio */
+}
 
-  /* Media Query for Mobile Phones */
-  @media (max-width: 768px) {
+/* Mobile override for aboutSlide padding - preserve original behavior */
+@media (max-width: 768px) {
+  .aboutSlide {
     padding-bottom: 100%; /* Increase padding for smaller screens */
   }
 }
 
+/* ==========================================================================
+   SLIDER / UPCOMING EVENTS (Carousel / slider)
+   ========================================================================== */
 
-/* Upcoming Events Slider CSS */
 .slider-container {
   position: relative;
-
-    position: relative;
-    height: calc(100vh - 250px); /* Assuming the navbar height is 80px */
+  height: calc(100vh - 250px); /* Assuming the navbar height is 80px */
 }
 
 .slider-slide {
@@ -254,29 +317,36 @@ section {
 .odd-slide .text-container {
   right: 20px;
 }
- /* Gallery CSS */
 
+/* ==========================================================================
+   GALLERY (PhotoGallery, Gallery components)
+   - thumbnails, rows, container layout
+   ========================================================================== */
+
+/* Transition for image fluidity */
 .img-fluid {
   transition: all 0.3s ease; /* Transition */
 }
-/* Styles for the smaller images */
+
+/* cream background utility */
 .bg-cream {
   background-color: #F5FCCD;
 }
-/* Styles for the smaller images */
+
+/* small/expanded classes used for the grid behavior */
 .small {
   max-width: 150px; /* Adjust the size according to your needs */
   max-height: 150px; /* Adjust the size according to your needs */
   cursor: pointer;
 }
 
-/* Styles for the expanded images */
 .expanded {
   max-width: 80%; /* Adjust the size according to your needs */
   max-height: 80%; /* Adjust the size according to your needs */
   cursor: pointer;
 }
 
+/* gallery structural layout */
 .image-gallery {
   display: flex;
   flex-direction: column;
@@ -294,6 +364,7 @@ section {
   flex-wrap: wrap;
 }
 
+/* Each image tile in the main gallery grid */
 .img-container {
   cursor: pointer;
   width: 25%; /* 4 images in a row */
@@ -308,6 +379,7 @@ section {
   object-fit: cover;
 }
 
+/* small/expanded used in responsive grid */
 .small {
   flex-basis: 25%;
 }
@@ -317,15 +389,52 @@ section {
   cursor: zoom-out;
 }
 
-/* Styles for expanded portrait image */
+/* Styles for expanded portrait image (explicit) */
 .expanded img.portrait {
   width: 608px;
   height: 1080px;
   object-fit: contain;
 }
 
-/* ImageModal.css */
+/* thumbnail image helper */
+.thumbnail-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 
+/* landscape helper */
+.landscape {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 120px; /* Adjust this value as needed */
+}
+
+/* Generic column tweaks used across templates */
+.col-md-1,
+.col-md-10 {
+  padding: 0;
+}
+
+.col-md-1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.col-md-10 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==========================================================================
+   IMAGE / MEDIA MODAL (ImageModal.js, VideoModal.js) and media gallery modal
+   - overlays, modal containers, nav buttons, responsive rules
+   ========================================================================== */
+
+/* legacy ImageModal overlay */
 .image-modal-overlay {
   position: fixed;
   top: 0;
@@ -342,6 +451,7 @@ section {
   pointer-events: none;
 }
 
+/* legacy ImageModal container */
 .image-modal {
   position: relative;
   width: 90%;
@@ -379,14 +489,13 @@ section {
   color: #f44336;
 }
 
+/* Media row and thumbnail containers used in gallery lists */
 .media-row {
-  /* ... Existing styles ... */
   display: flex;
   flex-wrap: wrap;
 }
 
 .media-container {
-  /* Set fixed width for the media containers (images and videos) */
   width: 150px;
   height: 150px;
   margin: 5px;
@@ -397,14 +506,12 @@ section {
 }
 
 .media-thumbnail {
-  /* Set images to cover the container with the same aspect ratio */
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .video-thumbnail {
-  /* Style the play button overlay on top of the video thumbnail */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -413,9 +520,7 @@ section {
   height: 80px;
 }
 
-/* ImageModal.css */
-
-/* Background overlay */
+/* Media Modal styles (used by both Image and Video modal components) */
 .media-modal-overlay {
   position: fixed;
   top: 0;
@@ -428,7 +533,7 @@ section {
   align-items: center;
 }
 
-/* Modal container */
+/* media-modal container */
 .media-modal {
   position: relative; /* Required for positioning the close button */
   background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
@@ -453,13 +558,14 @@ section {
   max-height: 90vh; /* Maximum visible size for landscape images */
   max-width: 90vw; /* Maximum visible size for landscape images */
 }
+
 /* Video player */
 .modal-video {
   max-width: 100%;
   max-height: 100%;
 }
 
-/* Close button */
+/* Close button style variant for media-modal (larger / white bg) */
 .close-button {
   position: absolute;
   top: 0;
@@ -481,6 +587,7 @@ section {
   background-color: rgba(255, 255, 255, 1); /* Full opacity on hover for better visibility */
 }
 
+/* Modal navigation & navigation buttons */
 .modal-navigation {
   position: relative;
   display: flex;
@@ -508,43 +615,10 @@ section {
   right: 0;
 }
 
-
-/* Assuming you have a CSS file linked in your HTML */
-
-.thumbnail-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Zoom in landscape images to match col-md-2 width */
-.landscape {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  max-height: 120px; /* Adjust this value as needed */
-}
-
-.col-md-1,
-.col-md-10 {
-  padding: 0;
-}
-
-.col-md-1 {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.col-md-10 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* in one shot HistoryRecap.css */
-
-/* HistoryRecap.css */
+/* ==========================================================================
+   HISTORY RECAP (HistoryRecap.js)
+   - compact cards + detail panel
+   ========================================================================== */
 
 .glance-div {
   max-width: 400px;
@@ -580,13 +654,15 @@ section {
   color: white !important;
 }
 
-
-/* sky blue background */
+/* sky blue background utility used across pages */
 .sky-blue-background {
   background-color: #87CEEB; /* Sky blue color */
 }
 
-/* ImgNav.css */
+/* ==========================================================================
+   IMGNAV (ImgNav.css) and Event thumbnails
+   - small thumbnail nav & hover states
+   ========================================================================== */
 
 .img-nav-container {
   display: flex;
@@ -606,6 +682,7 @@ section {
   object-fit: cover; /* Crop or stretch the image to cover the entire square */
 }
 
+/* "Know more" overlay, hidden by default and shown on hover via JS or :hover */
 .know-more {
   position: absolute;
   top: 50%;
@@ -617,10 +694,12 @@ section {
   display: none;
 }
 
+/* blur utility */
 .blurred:hover {
   filter: blur(4px); /* Adjust the blur intensity as needed */
 }
 
+/* alternative know-more style used in other places (kept for compatibility) */
 .know-more {
   width: 100%;
   height: 100%;
@@ -637,7 +716,8 @@ section {
   color: #fff;
   font-weight: bold;
 }
-/* Media query for mobile phones */
+
+/* small-screen adjustments for ImgNav */
 @media (max-width: 576px) {
   .container {
     padding: 10px; /* Reduce padding for smaller screens */
@@ -653,20 +733,18 @@ section {
   }
 }
 
-
-/* ImgNav.css */
-
+/* Re-declared container padding (preserved) */
 .container {
   padding: 20px;
 }
 
-/* Adjust the max-width for the image to make it smaller */
+/* Small helper image class used in a few pages */
 .img-fluid1 {
   max-width: 40%; /* You can adjust this value to make the image smaller */
   height: 40%;
 }
 
-/* Media query for phones */
+/* Media query for phones (ImgNav and layout adjustments) */
 @media (max-width: 576px) {
   .container-ev {
     padding: 10px;
@@ -691,9 +769,10 @@ section {
   }
 }
 
+/* ==========================================================================
+   POP-UP / POSTER modal (popup) and utilities
+   ========================================================================== */
 
-
-/* POP-Up Poster  CSS*/
 .popup-container {
   position: fixed;
   top: 0;
@@ -725,12 +804,14 @@ section {
   cursor: pointer;
 }
 
-/* KeyFrame - Marquee CSS*/
+/* ==========================================================================
+   MARQUEE / SCROLLING TEXT
+   ========================================================================== */
+
 .scrolling-text {
   white-space: nowrap; /* Prevent text from wrapping to the next line */
   overflow: hidden; /* Hide the overflowing text */
   position: relative; /* Required for absolute positioning */
-
   /* Animation settings */
   animation: scroll-left 20s linear infinite;
 }
@@ -744,3 +825,32 @@ section {
     transform: translateX(-100%); /* Scroll to the left */
   }
 }
+
+/* ==========================================================================
+   SMALL UTILS & FALLBACKS
+   - Any leftover utilities and generic helpers kept here
+   ========================================================================== */
+
+/* ensure image-container utility still behaves like before */
+.image-container {
+  width: 100%; /* Set the image width to 100% of the parent container */
+  height: 100%; /* Set the image height to 100% of the parent container */
+  object-fit: cover; /* Optional: To maintain aspect ratio and cover the entire container */
+  padding-top: .9vw;
+  padding-right: 1vw;
+  padding-bottom: 1vw;
+}
+
+/* repeated .full-screen styles kept to avoid breaking older pages */
+.fullscreen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
