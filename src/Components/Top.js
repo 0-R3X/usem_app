@@ -2,7 +2,7 @@
 import React from "react";
 
 export default function Top() {
-  const HERO_IMG = "/assets/images/jaikedar1.jpg";
+  const HERO_IMG = "https://res.cloudinary.com/dkhjn75hj/image/upload/assets/images/jaikedar1.jpg";
 
   return (
     <>
