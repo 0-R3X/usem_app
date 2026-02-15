@@ -15,6 +15,8 @@ const CLOUDINARY_BASE = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload`;
 // 1) Upload assets/eventN to Cloudinary with your script
 // 2) Add { id: N, name: '...', imageCount: X } here
 const IMAGE_EVENTS = [
+  { id: 13, name: "मकरेणी कौथिक महोत्सव - 2026", imageCount: 55 },
+  { id: 12, name: "जागरण - 2025", imageCount: 88 },
   { id: 11, name: "स्वतंत्रता दिवस - 2025", imageCount: 33 },
   { id: 10, name: "मकरेणी कौथिक महोत्सव - 2025", imageCount: 21 },
   { id: 9, name: "वृक्षारोपण - 2025", imageCount: 26 },

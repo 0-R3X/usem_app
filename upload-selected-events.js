@@ -1,17 +1,17 @@
 // upload-selected-events.js
+// node upload-selected-events.js event12
+
 require("dotenv").config();
 const path = require("path");
 const fs = require("fs");
 const cloudinary = require("cloudinary").v2;
 
-// 1. Configure Cloudinary from .env
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// 2. Root folder of your local assets
 const LOCAL_ASSETS_ROOT = path.join(__dirname, "public", "assets");
 
 // Helper: recursively get all files inside a directory
@@ -34,20 +34,18 @@ function getFilesRecursively(dir) {
 
 // Build Cloudinary upload params from a local file path
 function buildUploadParams(fullPath) {
-  // Example: fullPath = /.../public/assets/event10/1 (3).jpg
-  const relative = path.relative(LOCAL_ASSETS_ROOT, fullPath); // "event10/1 (3).jpg"
 
-  const dirName = path.dirname(relative); // "event10"
-  const fileName = path.basename(relative); // "1 (3).jpg"
+  const relative = path.relative(LOCAL_ASSETS_ROOT, fullPath); 
+  const dirName = path.dirname(relative); 
+  const fileName = path.basename(relative);
 
   // Clean file base name for public_id
-  const baseName = path.parse(fileName).name; // "1 (3)"
+  const baseName = path.parse(fileName).name; 
   const cleanId = baseName
     .replace(/\s+/g, "_") // spaces → underscore
     .replace(/[()]/g, ""); // remove parentheses  → "1_3"
 
   // Cloudinary folder: prefix with "assets/"
-  // so dirName "event10" becomes "assets/event10"
   const folder = path.posix.join("assets", dirName.replace(/\\/g, "/"));
 
   // Tags for organization/search (optional)
